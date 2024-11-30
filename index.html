@@ -23,15 +23,6 @@
         <p>&copy; 2024 Your Name. Built with ❤ using Brython and GitHub Pages.</p>
     </footer>
     <!-- Python Script -->
-    <script type="text/python">
-        from browser import document
-
-        def show_message(event):
-            output = document["output"]
-            output.text = "Hello, Brython is working!"
-        
-        # Attach event listener to button
-        document["action-btn"].bind("click", show_message)
-    </script>
+    <script type="text/python" src="pythonScripts.py"></script>
 </body>
 </html>
