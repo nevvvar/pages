@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A simple static site powered by Brython">
-    <title>Welcome to My Brython Site</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/brython@3.11.3/brython.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.js Demo</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.js"></script>
 </head>
-<body onload="brython()">
-    <header>
-        <h1>Welcome to My Brython Site</h1>
-    </header>
-    <main>
-        <div>
-            <p>Click the button below to see Brython in action:</p>
-            <button id="action-btn">Run Python</button>
-            <p id="output"></p>
-        </div>
-    </main>
-    <footer>
-        <p>&copy; 2024 Your Name. Built with ❤ using Brython and GitHub Pages.</p>
-    </footer>
-    <!-- Python Script -->
-    <script type="text/python" src="pythonScripts.py"></script>
+<body>
+  <div id="app">
+    <h1>{{ title }}</h1>
+    
+    <!-- Input and Two-Way Binding -->
+    <div>
+      <label for="new-task">Add a Task: </label>
+      <input id="new-task" v-model="newTask" placeholder="Enter a task">
+      <button @click="addTask">Add Task</button>
+    </div>
+
+    <!-- Conditional Rendering -->
+    <p v-if="tasks.length === 0">No tasks available. Add one!</p>
+    <p v-else>Total tasks: {{ tasks.length }}</p>
+
+    <!-- List Rendering -->
+    <ul>
+      <li v-for="(task, index) in tasks" :key="index">
+        <span :class="{ done: task.completed }">{{ task.text }}</span>
+        <button @click="toggleTask(index)">{{ task.completed ? "Undo" : "Complete" }}</button>
+        <button @click="deleteTask(index)">Delete</button>
+      </li>
+    </ul>
+
+    <!-- Computed Property -->
+    <p v-if="completedTasks > 0">You've completed {{ completedTasks }} task(s)!</p>
+
+    <!-- Dynamic Styles -->
+    <button @click="clearAll" :disabled="tasks.length === 0" :style="clearButtonStyle">Clear All</button>
+  </div>
+
+  <script src="scripts.js"></script>
 </body>
 </html>
